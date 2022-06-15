@@ -189,6 +189,7 @@ def plus_edge(data_observed, label, p_edge, args):
     return data
 
 def minus_edge(data_observed, label, p_edge, args):
+    # 抽取k阶子图
     nodes, edge_index_p, mapping,_ = k_hop_subgraph(node_idx= p_edge, num_hops=args.num_hops,\
  edge_index = data_observed.edge_index,max_nodes_per_hop=args.max_nodes_per_hop, num_nodes = data_observed.num_nodes)
     x_sub = data_observed.x[nodes,:]
@@ -385,6 +386,7 @@ def prepare_data(args):
     #load data from .mat or download from Planetoid dataset.
     
     if args.data_name in ('cora', 'citeseer', 'pubmed'):
+        # 加载原始数据
         data = load_Planetoid_data(args)
         data = split_edges(data,args)
     else:
